@@ -3,9 +3,7 @@
 int main()
 {
 
-
-
-	float alt;
+    float alt;
     char sexo;
     float peso_ideal;
     

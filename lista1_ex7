@@ -15,7 +15,6 @@ int main()
     scanf("%d", &segundo);
     
     total_segundos = (hora*60*60) + (minuto*60) + (segundo);
-
     printf("Total de segundos: %d", total_segundos);
     
     return 0;

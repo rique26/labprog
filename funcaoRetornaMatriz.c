@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-int tam = 5;
+int tam=5, l=5, c=5;
 
-void imprimir(int m[][5]){
+
+void imprimir(int m[l][c]){
     int i,j;
     for(i=0; i<tam; i++){
         for(j=0; j<tam; j++)
@@ -14,7 +15,7 @@ void imprimir(int m[][5]){
 
 }
 
-int somarLinha(int x[][5], int l){
+int somarLinha(int x[l][c], int l){
     int c, soma =0;
 
     for(c=0; c<tam; c++)
@@ -24,13 +25,13 @@ int somarLinha(int x[][5], int l){
 }
 
 int main() {
-    int mat[5][5];
+    int mat[l][c];
     int i , j;
     srand(time(NULL));
 
     for(i=0; i<tam; i++){
         for(j=0; j<tam; j++){
-            mat[i][j] = rand() % 100;
+            mat[i][j] = rand() % 10;
         }
     }
 

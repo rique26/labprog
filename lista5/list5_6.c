@@ -5,15 +5,15 @@
 int media(int *vet);
 int mediana(int *vet);
 int moda(int *vet);
-int tam=7;
+int tam=15;
 
 int main(){
     int *vet;
     vet = malloc(sizeof(int)*tam);
     srand(time(NULL));
 
-    
     for(int i=0; i<tam; i++) *(vet+i) = rand()%10;
+    printf("\nVetor: ");
     for(int i=0; i<tam; i++) printf("%d ", *(vet+i));
 
     printf("\n\n");
@@ -23,11 +23,13 @@ int main(){
     printf("Mediana: %d ", mediana(vet));
 
     printf("\n\n");
+    printf("Moda: %d ", moda(vet));
+
+    printf("\n\nVetor ordenado: ");
     for(int i=0; i<tam; i++) printf("%d ", *(vet+i));
 
     return 0;
 }
-
 
 int media(int *vet){
     int result = 0;
@@ -62,7 +64,7 @@ int mediana(int *vet){
 }
 
 int moda(int *vet){
-    int *vetcont;
+    int *vetcont, maiorRepet, resultado;
     vetcont = calloc(tam, sizeof(int));
 
     for(int k=0;k<tam;k++)
@@ -70,10 +72,12 @@ int moda(int *vet){
             if(*(vet+k)==*(vet+i))
                 *(vetcont+k) +=1;
 
-    for(int k=0;k<tam;k++)
-        for(int i=0;i<tam;i++)
-            if(*(vet+k)==*(vet+i))
-                *(vetcont+k) +=1;
+    maiorRepet = *(vetcont+0);
+    for(int k=1;k<tam;k++)
+        if(*(vetcont+k) >= maiorRepet){
+            maiorRepet = *(vetcont+k);
+            resultado = *(vet+k);
+        }  
 
-    
+    return resultado;
 }

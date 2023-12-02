@@ -76,7 +76,7 @@ void filtro(int **matOrig, int l, int c, int tamJanela){
             for(int x=-1; x<=tamJanela-2; x++){
                 for(int y=-1; y<=tamJanela-2; y++)
                     soma += *(*(matCopia+i+x)+k+y);
-            }*(*(result+i-1)+k-1) = soma/9;
+            }*(*(result+i-1)+k-1) = soma/(tamJanela*tamJanela);
         }
     }
       

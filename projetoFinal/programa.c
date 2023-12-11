@@ -1,3 +1,12 @@
+/*******************************************************
+    * Aluno: Pedro Henrique Araujo de Oliveira
+    * Matricula: 20231045050084
+    * Avaliacao 04: Trabalho Final                           
+    * 04.505.23 - 2023.2 - Prof. Daniel Ferrera             
+    * Compilador:..(DevC++ ou gcc) versao ..                
+********************************************************/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -19,7 +28,7 @@ void matrizSCM(struct pgm *pio, char *filename);
 void quantizacao(struct pgm *pio);
 
 
-int nivel = 256;
+int nivel = 8;
 
 int main(){
     time_t start_time = time(NULL);
@@ -35,12 +44,8 @@ int main(){
     readPGMImage(&img, nome);
     filtro(&img, tamJanela);
     writePGMImage(&img,nome2);
-    printf("\n\n\nmatorig: %hhu\nmatsuav: %hhu\n\n\n",img.mat_original[0], img.mat_suavizada[0]);
     quantizacao(&img);
     matrizSCM(&img, nome3);
-   
-    printf("\n\n\nokokokok\n\n\n");
-    printf("matorig: %hhu\nmatsuav: %hhu\nmatscm: %hhu",img.mat_original[0], img.mat_suavizada[0],img.mat_scm[0]);
     
     time_t end_time = time(NULL);
     double elapsed_time = difftime(end_time, start_time);

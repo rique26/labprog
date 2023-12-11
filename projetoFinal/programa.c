@@ -23,7 +23,6 @@ struct pgm{
 void readPGMImage(struct pgm *, char *);
 void writePGMImage(struct pgm *pio, char *filename);
 void filtro(struct pgm *pio, int tamJanela);
-void viewPGMImage(struct pgm *pio);
 void matrizSCM(struct pgm *pio, char *filename);
 void quantizacao(struct pgm *pio);
 
@@ -47,6 +46,7 @@ int main(){
     quantizacao(&img);
     matrizSCM(&img, nome3);
     
+    //calcular tempo gasto
     time_t end_time = time(NULL);
     double elapsed_time = difftime(end_time, start_time);
     printf("\n\nTempo decorrido: %.2f segundos\n", elapsed_time);
@@ -132,6 +132,7 @@ void filtro(struct pgm *pio, int tamJanela){
 
     int **result, **matCopia, soma=0, zerosAdic, acresc;
     
+    //alteracoes para cada tamanho da janela
     switch (tamJanela)
     {
     case 3:
@@ -183,17 +184,6 @@ void filtro(struct pgm *pio, int tamJanela){
     free(matCopia);
 }
 
-void viewPGMImage(struct pgm *pio){
-	printf("Tipo: %d\n",pio->tipo);
-	printf("Dimensões: [%d %d]\n",pio->c, pio->r);
-	printf("Max: %d\n",pio->mv);
-
-	for (int k=0; k < (pio->r * pio->c); k++){
-		if (!( k % pio->c)) printf("\n");
-		printf("%2hhu ",*(pio->mat_original+k));
-	}	
-	printf("\n");
-}
 
 void matrizSCM(struct pgm *pio, char *filename){
     
@@ -202,6 +192,7 @@ void matrizSCM(struct pgm *pio, char *filename){
     
     pio-> mat_scm = (unsigned char*) calloc(nivel * nivel, sizeof(unsigned char));
     
+    //criar a matriz scm
     for(int i=0; i<nivel; i++){
         while(c!=nivel){
             cont=1;
@@ -224,6 +215,7 @@ void matrizSCM(struct pgm *pio, char *filename){
 		exit(1);
 	}
     
+    //escrever matriz scm no arquivo
     for (int i = 0; i < 8 * 8; i++) 
         fprintf(fp, "%d, ", pio->mat_scm[i]);
     
@@ -236,6 +228,7 @@ void quantizacao(struct pgm *pio){
     int subintervalo, intensidade;
     int valorQuantizado;
 
+    //quantizar matriz original
     for (int k=0; k < (pio->r * pio->c); k++){
         intensidade = *(pio->mat_original+k);
         subintervalo = intensidade/intervalo;
@@ -243,7 +236,7 @@ void quantizacao(struct pgm *pio){
         *(pio->mat_original+k)  = valorQuantizado;
 
     }
-
+    //quantizar matriz suavizada
     for (int k=0; k < (pio->r * pio->c); k++){
         intensidade = *(pio->mat_suavizada+k);
         subintervalo = intensidade/intervalo;
